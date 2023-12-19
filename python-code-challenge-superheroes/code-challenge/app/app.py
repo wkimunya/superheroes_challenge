@@ -13,34 +13,34 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
-# migrate = Migrate(app, db)
-# db.init_app(app) # connects our database to our application before it runs
+migrate = Migrate(app, db)
+db.init_app(app) # connects our database to our application before it runs
 
-# ma = Marshmallow(app) # instantiating Marshmallow with the flask application instance
+ma = Marshmallow(app) # instantiating Marshmallow with the flask application instance
 
-# class PowerSchema(ma.SQLAlchemyAutoSchema):
+class PowerSchema(ma.SQLAlchemyAutoSchema):
 
-#     class Meta:
-#         model = Power
-#     # Fields to expose
-#         fields = ("id","name","description")
+    class Meta:
+        model = Power
+    # Fields to expose
+        fields = ("id","name","description")
 
-# power_schema = PowerSchema()
-# powers_schema = PowerSchema(many=True)
+power_schema = PowerSchema()
+powers_schema = PowerSchema(many=True)
 
-# class HeroSchema(ma.SQLAlchemyAutoSchema):
+class HeroSchema(ma.SQLAlchemyAutoSchema):
     
-#     powers = ma.Nested(PowerSchema, many=True)
+    powers = ma.Nested(PowerSchema, many=True)
 
-#     class Meta:
-#         model = Hero
-#         # Fields to expose
-#         fields = ("id", "name", "super_name")
+    class Meta:
+        model = Hero
+        # Fields to expose
+        fields = ("id", "name", "super_name")
 
-# hero_schema = HeroSchema()
-# heroes_schema = HeroSchema(many=True)
+hero_schema = HeroSchema()
+heroes_schema = HeroSchema(many=True)
 
-# api = Api(app)
+api = Api(app)
 
 # class Index(Resource):
 
