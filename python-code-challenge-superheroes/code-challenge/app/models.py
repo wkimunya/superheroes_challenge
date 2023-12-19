@@ -37,16 +37,16 @@ class Power(db.Model):
     # creating a one to many association betweem power and HeroPower 
     heroes = db.relationship('HeroPower', back_populates='power')
 
-#     # Validate description must be at least 20 characters long
-#     @validates('description')
-#     def validate_description(self, key, description):
-#         if len(description) < 20:
-#             raise ValueError("Description must be at least 20 characters long")
-#         return description
+    # Validate description must be at least 20 characters long
+    @validates('description')
+    def validate_description(self, key, description):
+        if len(description) < 20:
+            raise ValueError("Description must be at least 20 characters long")
+        return description
 
-#     # Instance method that returns a printable representation of the object
-#     def __repr__(self):
-#         return f'Power name:{self.name}, Description: {self.description}'
+    # Instance method that returns a printable representation of the object
+    def __repr__(self):
+        return f'Power name:{self.name}, Description: {self.description}'
     
 # class HeroPower(db.Model):
 #     __tablename__='hero_powers'
