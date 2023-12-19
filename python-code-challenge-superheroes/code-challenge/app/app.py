@@ -42,22 +42,22 @@ heroes_schema = HeroSchema(many=True)
 
 api = Api(app)
 
-# class Index(Resource):
+class Index(Resource):
 
-#     def get(self):
+    def get(self):
 
-#         response_dict = {
-#             "index": "Welcome to Superheroes RESTful API",
-#         }
+        response_dict = {
+            "index": "Welcome to Superheroes RESTful API",
+        }
 
-#         response = make_response(
-#             jsonify(response_dict),
-#             200,
-#         )
+        response = make_response(
+            jsonify(response_dict),
+            200,
+        )
 
-#         return response
+        return response
 
-# api.add_resource(Index, '/')
+api.add_resource(Index, '/')
 
 # class Heroes(Resource):
 #     def get(self):
