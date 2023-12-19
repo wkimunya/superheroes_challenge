@@ -25,17 +25,17 @@ class Hero(db.Model):
     def __repr__(self):
         return f'Hero name:{self.name}, Super name: {self.super_name}'
 
-# class Power(db.Model):
-#     __tablename__='powers'
+class Power(db.Model):
+    __tablename__='powers'
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String)
-#     description = db.Column(db.String, nullable=False)
-#     created_at = db.Column(db.DateTime, server_default=db.func.now())
-#     updated_at = db.Column(db.DateTime, onupdate=db.func.now()) 
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now()) 
 
-#     # creating a one to many association betweem power and HeroPower 
-#     heroes = db.relationship('HeroPower', back_populates='power')
+    # creating a one to many association betweem power and HeroPower 
+    heroes = db.relationship('HeroPower', back_populates='power')
 
 #     # Validate description must be at least 20 characters long
 #     @validates('description')
