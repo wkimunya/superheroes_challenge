@@ -18,12 +18,12 @@ class Hero(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now()) 
 
-#     # creating a one to many association betweem Hero and HeroPower 
-#     powers = db.relationship('HeroPower', back_populates='hero')
+    # creating a one to many association betweem Hero and HeroPower 
+    powers = db.relationship('HeroPower', back_populates='hero')
 
-#     # Instance method that determines the standard output value
-#     def __repr__(self):
-#         return f'Hero name:{self.name}, Super name: {self.super_name}'
+    # Instance method that determines the standard output value
+    def __repr__(self):
+        return f'Hero name:{self.name}, Super name: {self.super_name}'
 
 # class Power(db.Model):
 #     __tablename__='powers'
