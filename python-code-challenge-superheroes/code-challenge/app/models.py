@@ -48,29 +48,29 @@ class Power(db.Model):
     def __repr__(self):
         return f'Power name:{self.name}, Description: {self.description}'
     
-# class HeroPower(db.Model):
-#     __tablename__='hero_powers'
+class HeroPower(db.Model):
+    __tablename__='hero_powers'
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     strength = db.Column(db.String)
-#     hero_id = db.Column(db.Integer, db.ForeignKey('heroes.id'))
-#     power_id = db.Column(db.Integer, db.ForeignKey('powers.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    strength = db.Column(db.String)
+    hero_id = db.Column(db.Integer, db.ForeignKey('heroes.id'))
+    power_id = db.Column(db.Integer, db.ForeignKey('powers.id'))
 
-#     created_at = db.Column(db.DateTime, server_default=db.func.now())
-#     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-#     # Relationship patterns
-#     hero = db.relationship('Hero', back_populates='powers')
-#     power = db.relationship('Power', back_populates='heroes')
+    # Relationship patterns
+    hero = db.relationship('Hero', back_populates='powers')
+    power = db.relationship('Power', back_populates='heroes')
 
-#     # validation: strength must be one of the following values ['Strong', 'Weak', 'Average']
-#     # @validates("strength")
-#     # def validate_strength(self, key, strength):
-#     #     strengths = ['Strong', 'Weak', 'Average']
-#     #     if strength not in strengths:
-#     #         raise ValueError("Strength must be one of the following values: 'Strong', 'Weak', 'Average'")
-#     #     return strength
+    #validation: strength must be one of the following values ['Strong', 'Weak', 'Average']
+    @validates("strength")
+    def validate_strength(self, key, strength):
+        strengths = ['Strong', 'Weak', 'Average']
+        if strength not in strengths:
+            raise ValueError("Strength must be one of the following values: 'Strong', 'Weak', 'Average'")
+        return strength
     
-#     # Instance method that returns a printable representation of the object
-#     def __repr__(self):
-#         return f'Strength:{self.strength}, Hero:{self.hero_id}, Power:{self.power_id}'
+    # Instance method that returns a printable representation of the object
+    def __repr__(self):
+        return f'Strength:{self.strength}, Hero:{self.hero_id}, Power:{self.power_id}'
