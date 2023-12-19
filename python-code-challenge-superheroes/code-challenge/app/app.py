@@ -116,88 +116,88 @@ class Powers(Resource):
         )
         return response
     
-# # add the resource to the API   
-# api.add_resource(Powers, '/powers')
+# add the resource to the API   
+api.add_resource(Powers, '/powers')
 
-# class PowerByID(Resource):
-#     def get(self, id):
+class PowerByID(Resource):
+    def get(self, id):
 
-#         power_list = Power.query.filter_by(id=id).first()
+        power_list = Power.query.filter_by(id=id).first()
 
-#         if not power_list:
-#             return make_response ({"error": "Power not found"}, 404)
-#         else:
-#             response = power_schema.dump(power_list)
-#             return make_response(
-#                 jsonify(response),
-#                 200
-#             )
+        if not power_list:
+            return make_response ({"error": "Power not found"}, 404)
+        else:
+            response = power_schema.dump(power_list)
+            return make_response(
+                jsonify(response),
+                200
+            )
     
-#     def patch(self, id):
+    def patch(self, id):
 
-#         power = Power.query.filter_by(id=id).first()
+        power = Power.query.filter_by(id=id).first()
         
-#         if not power:
-#             return make_response({"error": "Power not found"}, 404)
+        if not power:
+            return make_response({"error": "Power not found"}, 404)
         
-#         for attr in request.form:
-#             setattr(power, attr, request.form.get(attr))
+        for attr in request.form:
+            setattr(power, attr, request.form.get(attr))
             
-#         db.session.add(power)
-#         db.session.commit()
+        db.session.add(power)
+        db.session.commit()
 
-#         response = make_response(
-#             power_schema.dump(power),
-#             200
-#         )
-#         return response
+        response = make_response(
+            power_schema.dump(power),
+            200
+        )
+        return response
         
-# api.add_resource(PowerByID, '/powers/<int:id>')
+api.add_resource(PowerByID, '/powers/<int:id>')
 
-# class HeroPowers(Resource):
+class HeroPowers(Resource):
 
-#     def post(self):
+    def post(self):
 
-#         new_hero_power = HeroPower(
-#             hero_id = request.form.get("hero_id"), 
-#             power_id = request.form.get("power_id"), 
-#             strength = request.form.get("strength")
-#             )
+        new_hero_power = HeroPower(
+            hero_id = request.form.get("hero_id"), 
+            power_id = request.form.get("power_id"), 
+            strength = request.form.get("strength")
+            )
         
-#         hero = Hero.query.filter_by(id=request.form.get("hero_id")).first()
+        hero = Hero.query.filter_by(id=request.form.get("hero_id")).first()
 
-#         if not hero:
-#             return {"error": "Hero not found"}
-#         else:
-#             db.session.add(new_hero_power)
-#             db.session.commit()
+        if not hero:
+            return {"error": "Hero not found"}
+        else:
+            db.session.add(new_hero_power)
+            db.session.commit()
 
-#             powers = Power.query.join(HeroPower).filter_by(id=request.form.get("hero_id")).all()
+            powers = Power.query.join(HeroPower).filter_by(id=request.form.get("hero_id")).all()
             
-#             response_body = {
-#                 "id": hero.id,
-#                 "name": hero.name,
-#                 "super_name": hero.super_name,
-#                 "powers": []
-#             }
+            response_body = {
+                "id": hero.id,
+                "name": hero.name,
+                "super_name": hero.super_name,
+                "powers": []
+            }
 
-#             for power in powers:
-#                 pd = {
-#                     "id":power.id,
-#                     "name": power.name,
-#                     "description": power.description
-#                 }
-#                 response_body["powers"].append(pd)
+            for power in powers:
+                pd = {
+                    "id":power.id,
+                    "name": power.name,
+                    "description": power.description
+                }
+                response_body["powers"].append(pd)
 
-#             response = make_response(
-#                 power_schema.dump(response_body),
-#                 201,
-#             )
-#             return response
+            response = make_response(
+                power_schema.dump(response_body),
+                201,
+            )
+            return response
         
-# # add the resource to the API
-# api.add_resource(HeroPowers, '/hero_powers')
+# add the resource to the API
+api.add_resource(HeroPowers, '/hero_powers')
 
-# if __name__ == '__main__':
-#     app.run(port=5555, debug=True)
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
 
