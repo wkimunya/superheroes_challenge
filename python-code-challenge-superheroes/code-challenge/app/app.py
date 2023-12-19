@@ -59,62 +59,62 @@ class Index(Resource):
 
 api.add_resource(Index, '/')
 
-# class Heroes(Resource):
-#     def get(self):
-#         hero = Hero.query.all()
-#         hero_dict = heroes_schema.dump(hero)
-#         response = make_response(
-#             jsonify(hero_dict), 
-#             200
-#             )
-#         return response
+class Heroes(Resource):
+    def get(self):
+        hero = Hero.query.all()
+        hero_dict = heroes_schema.dump(hero)
+        response = make_response(
+            jsonify(hero_dict), 
+            200
+            )
+        return response
     
-# api.add_resource(Heroes, '/heroes')
+api.add_resource(Heroes, '/heroes')
 
-# class HeroByID(Resource):
-#     # get the record using the id
-#     def get(self, id):
-#         hero = Hero.query.filter_by(id=id).first()
+class HeroByID(Resource):
+    # get the record using the id
+    def get(self, id):
+        hero = Hero.query.filter_by(id=id).first()
 
-#         if not hero:
-#             response_body = {"error": "Hero not found"}
-#             response = make_response(
-#                 jsonify(response_body),
-#                 404
-#             )
-#             return response
-#         else:
-#             powers = Power.query.join(HeroPower).filter(HeroPower.hero_id == id).all()
+        if not hero:
+            response_body = {"error": "Hero not found"}
+            response = make_response(
+                jsonify(response_body),
+                404
+            )
+            return response
+        else:
+            powers = Power.query.join(HeroPower).filter(HeroPower.hero_id == id).all()
             
-#             response_body = {
-#                 "id": hero.id,
-#                 "name": hero.name,
-#                 "super_name": hero.super_name,
-#                 "powers": []
-#             }
-#             for power in powers:
-#                 pd = {
-#                     "id": power.id,
-#                     "name": power.name,
-#                     "description": power.description
-#                 }
-#                 response_body["powers"].append(pd)
+            response_body = {
+                "id": hero.id,
+                "name": hero.name,
+                "super_name": hero.super_name,
+                "powers": []
+            }
+            for power in powers:
+                pd = {
+                    "id": power.id,
+                    "name": power.name,
+                    "description": power.description
+                }
+                response_body["powers"].append(pd)
 
-#             return response_body, 200
+            return response_body, 200
 
-# # add the resource to the API   
-# api.add_resource(HeroByID, '/heroes/<int:id>')
+# add the resource to the API   
+api.add_resource(HeroByID, '/heroes/<int:id>')
 
-# class Powers(Resource):
+class Powers(Resource):
 
-#     def get(self):
-#         power_dict = Power.query.all()
+    def get(self):
+        power_dict = Power.query.all()
 
-#         response = make_response(
-#             powers_schema.dump(power_dict), 
-#             200
-#         )
-#         return response
+        response = make_response(
+            powers_schema.dump(power_dict), 
+            200
+        )
+        return response
     
 # # add the resource to the API   
 # api.add_resource(Powers, '/powers')
